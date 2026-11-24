@@ -1,0 +1,872 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Netatmo Public Weather",
+  "description": {
+    "en": "Weather around your home from the public Netatmo stations: rain, wind, temperature.",
+    "fr": "La météo autour de chez vous via les stations Netatmo publiques : pluie, vent, température.",
+    "de": "Das Wetter um dein Zuhause von öffentlichen Netatmo-Stationen: Regen, Wind, Temperatur.",
+    "es": "El tiempo alrededor de su casa con las estaciones Netatmo públicas: lluvia, viento, temperatura."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-netatmo-public-weather:0.1.0",
+  "gladys_version": ">=5.3.0",
+  "categories": ["environment"],
+  "keywords": [
+    "Netatmo",
+    "weather station",
+    "station météo",
+    "Wetterstation",
+    "estación meteorológica",
+    "rain",
+    "pluie",
+    "wind",
+    "neighborhood",
+    "getpublicdata"
+  ],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-netatmo-public-weather/main/cover.jpg",
+  "transports": ["cloud"],
+  "location": true,
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Netatmo Connect application",
+        "fr": "Application Netatmo Connect",
+        "de": "Netatmo-Connect-Anwendung",
+        "es": "Aplicación Netatmo Connect"
+      },
+      "description": {
+        "en": "Netatmo shares the measures of the weather stations their owners made public. Gladys reads them through YOUR own Netatmo Connect application (free, 2 minutes), no Netatmo device needed:\n1. Open \"Create a Netatmo application\" below and sign in with a Netatmo account (create one if needed).\n2. Fill in the required fields (name, e.g. \"Gladys\", description, your name and e-mail). Leave \"Redirect URI\" and \"Webhook URI\" empty.\n3. Save, copy the \"client ID\" and \"client secret\" into the fields below, then click \"Save configuration\".\n4. Click \"Connect\" and accept on the Netatmo page.",
+        "fr": "Netatmo partage les mesures des stations météo que leurs propriétaires ont rendues publiques. Gladys les lit via VOTRE propre application Netatmo Connect (gratuit, 2 minutes), sans appareil Netatmo :\n1. Ouvrez « Créer une application Netatmo » ci-dessous et connectez-vous avec un compte Netatmo (créez-en un au besoin).\n2. Remplissez les champs obligatoires (nom, par ex. « Gladys », description, vos nom et e-mail). Laissez vides « Redirect URI » et « Webhook URI ».\n3. Enregistrez, copiez le « client ID » et le « client secret » dans les champs ci-dessous, puis cliquez sur « Enregistrer la configuration ».\n4. Cliquez sur « Connecter » et acceptez sur la page Netatmo.",
+        "de": "Netatmo teilt die Messwerte der Wetterstationen, die ihre Besitzer öffentlich gemacht haben. Gladys liest sie über DEINE eigene Netatmo-Connect-Anwendung (kostenlos, 2 Minuten), ohne Netatmo-Gerät:\n1. Öffne unten „Netatmo-Anwendung erstellen“ und melde dich mit einem Netatmo-Konto an (lege bei Bedarf eines an).\n2. Fülle die Pflichtfelder aus (Name, z. B. „Gladys“, Beschreibung, dein Name und deine E-Mail). Lass „Redirect URI“ und „Webhook URI“ leer.\n3. Speichere, kopiere „client ID“ und „client secret“ in die Felder unten und klicke auf „Konfiguration speichern“.\n4. Klicke auf „Verbinden“ und bestätige auf der Netatmo-Seite.",
+        "es": "Netatmo comparte las medidas de las estaciones meteorológicas que sus dueños hicieron públicas. Gladys las lee a través de SU propia aplicación Netatmo Connect (gratuita, 2 minutos), sin dispositivo Netatmo:\n1. Abra «Crear una aplicación Netatmo» abajo e inicie sesión con una cuenta Netatmo (cree una si hace falta).\n2. Rellene los campos obligatorios (nombre, p. ej. «Gladys», descripción, su nombre y correo). Deje vacíos «Redirect URI» y «Webhook URI».\n3. Guarde, copie el «client ID» y el «client secret» en los campos de abajo y haga clic en «Guardar la configuración».\n4. Haga clic en «Conectar» y acepte en la página de Netatmo."
+      },
+      "links": [
+        {
+          "url": "https://dev.netatmo.com/apps/createanapp#form",
+          "label": {
+            "en": "Create a Netatmo application",
+            "fr": "Créer une application Netatmo",
+            "de": "Netatmo-Anwendung erstellen",
+            "es": "Crear una aplicación Netatmo"
+          }
+        },
+        {
+          "url": "https://github.com/William-De71/gladys-netatmo-public-weather/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l’intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "client_id",
+      "type": "string",
+      "required": true,
+      "label": {
+        "en": "Client ID",
+        "fr": "Identifiant client (client ID)",
+        "de": "Client-ID",
+        "es": "ID de cliente (client ID)"
+      },
+      "description": {
+        "en": "The \"client ID\" line of your application on dev.netatmo.com.",
+        "fr": "La ligne « client ID » de votre application sur dev.netatmo.com.",
+        "de": "Die Zeile „client ID“ deiner Anwendung auf dev.netatmo.com.",
+        "es": "La línea «client ID» de su aplicación en dev.netatmo.com."
+      }
+    },
+    {
+      "key": "client_secret",
+      "type": "secret",
+      "required": true,
+      "label": {
+        "en": "Client secret",
+        "fr": "Secret client (client secret)",
+        "de": "Client-Secret",
+        "es": "Secreto de cliente (client secret)"
+      },
+      "description": {
+        "en": "The \"client secret\" line of the same page. Once saved it is no longer shown.",
+        "fr": "La ligne « client secret » de la même page. Une fois enregistré, il n’est plus affiché.",
+        "de": "Die Zeile „client secret“ derselben Seite. Nach dem Speichern wird es nicht mehr angezeigt.",
+        "es": "La línea «client secret» de la misma página. Una vez guardado ya no se muestra."
+      }
+    },
+    {
+      "key": "netatmo_account",
+      "type": "oauth2",
+      "label": {
+        "en": "Netatmo account",
+        "fr": "Compte Netatmo",
+        "de": "Netatmo-Konto",
+        "es": "Cuenta Netatmo"
+      },
+      "description": {
+        "en": "Gladys only asks to read weather data (read_station). The redirect address shown above does not need to be declared at Netatmo; if Netatmo refuses it, paste it into the \"Redirect URI\" of your application.",
+        "fr": "Gladys demande seulement à lire des données météo (read_station). L’adresse de redirection affichée n’a pas besoin d’être déclarée chez Netatmo ; si Netatmo la refuse, collez-la dans « Redirect URI » de votre application.",
+        "de": "Gladys fragt nur Lesezugriff auf Wetterdaten an (read_station). Die angezeigte Weiterleitungsadresse muss bei Netatmo nicht eingetragen werden; lehnt Netatmo sie ab, füge sie unter „Redirect URI“ deiner Anwendung ein.",
+        "es": "Gladys solo pide leer datos meteorológicos (read_station). La dirección de redirección mostrada no necesita declararse en Netatmo; si Netatmo la rechaza, péguela en «Redirect URI» de su aplicación."
+      }
+    },
+    {
+      "key": "area",
+      "type": "section",
+      "label": {
+        "en": "Around the house",
+        "fr": "Autour de la maison",
+        "de": "Rund um das Zuhause",
+        "es": "Alrededor de la casa"
+      },
+      "description": {
+        "en": "The public stations are searched around the position of a house of Gladys (Settings > Houses).",
+        "fr": "Les stations publiques sont cherchées autour de la position d’une maison de Gladys (Paramètres > Maisons).",
+        "de": "Die öffentlichen Stationen werden um die Position eines Zuhauses in Gladys gesucht (Einstellungen > Häuser).",
+        "es": "Las estaciones públicas se buscan alrededor de la posición de una casa de Gladys (Ajustes > Casas)."
+      }
+    },
+    {
+      "key": "house",
+      "type": "select",
+      "source": "houses",
+      "required": false,
+      "label": {
+        "en": "House",
+        "fr": "Maison",
+        "de": "Zuhause",
+        "es": "Casa"
+      },
+      "description": {
+        "en": "Empty: the first house with a position.",
+        "fr": "Vide : la première maison qui a une position.",
+        "de": "Leer: das erste Zuhause mit Position.",
+        "es": "Vacío: la primera casa con posición."
+      }
+    },
+    {
+      "key": "radius_km",
+      "type": "number",
+      "required": false,
+      "default": 3,
+      "min": 1,
+      "max": 20,
+      "label": {
+        "en": "Radius (km)",
+        "fr": "Rayon (km)",
+        "de": "Radius (km)",
+        "es": "Radio (km)"
+      },
+      "description": {
+        "en": "From 1 to 20 km. 2 to 5 km is enough in town; widen it in the countryside.",
+        "fr": "De 1 à 20 km. 2 à 5 km suffisent en ville ; élargissez à la campagne.",
+        "de": "Von 1 bis 20 km. In der Stadt reichen 2 bis 5 km; auf dem Land größer wählen.",
+        "es": "De 1 a 20 km. En ciudad bastan 2 a 5 km; amplíelo en el campo."
+      }
+    },
+    {
+      "key": "statistic",
+      "type": "select",
+      "required": false,
+      "default": "median",
+      "label": {
+        "en": "Combine the stations by",
+        "fr": "Combiner les stations par",
+        "de": "Stationen zusammenfassen per",
+        "es": "Combinar las estaciones por"
+      },
+      "description": {
+        "en": "The median ignores a badly placed station (in the sun, against a wall); the mean uses them all.",
+        "fr": "La médiane ignore une station mal placée (au soleil, contre un mur) ; la moyenne les prend toutes.",
+        "de": "Der Median ignoriert eine schlecht aufgestellte Station (in der Sonne, an einer Wand); der Mittelwert nutzt alle.",
+        "es": "La mediana ignora una estación mal ubicada (al sol, contra una pared); la media las usa todas."
+      },
+      "options": [
+        {
+          "value": "median",
+          "label": {
+            "en": "Median (recommended)",
+            "fr": "Médiane (recommandé)",
+            "de": "Median (empfohlen)",
+            "es": "Mediana (recomendado)"
+          }
+        },
+        {
+          "value": "mean",
+          "label": {
+            "en": "Mean",
+            "fr": "Moyenne",
+            "de": "Mittelwert",
+            "es": "Media"
+          }
+        }
+      ]
+    },
+    {
+      "key": "max_stations",
+      "type": "select",
+      "required": false,
+      "default": "10",
+      "label": {
+        "en": "Nearby stations offered as devices",
+        "fr": "Stations proches proposées comme appareils",
+        "de": "Als Geräte angebotene nahe Stationen",
+        "es": "Estaciones cercanas ofrecidas como dispositivos"
+      },
+      "description": {
+        "en": "The nearest stations show in Discovery; add only the ones you want.",
+        "fr": "Les stations les plus proches apparaissent dans la découverte ; ajoutez seulement celles que vous voulez.",
+        "de": "Die nächsten Stationen erscheinen in der Erkennung; füge nur die gewünschten hinzu.",
+        "es": "Las estaciones más cercanas aparecen en el descubrimiento; añada solo las que quiera."
+      },
+      "options": [
+        {
+          "value": "0",
+          "label": {
+            "en": "0",
+            "fr": "0",
+            "de": "0",
+            "es": "0"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "5",
+            "fr": "5",
+            "de": "5",
+            "es": "5"
+          }
+        },
+        {
+          "value": "10",
+          "label": {
+            "en": "10",
+            "fr": "10",
+            "de": "10",
+            "es": "10"
+          }
+        },
+        {
+          "value": "20",
+          "label": {
+            "en": "20",
+            "fr": "20",
+            "de": "20",
+            "es": "20"
+          }
+        }
+      ]
+    },
+    {
+      "key": "options",
+      "type": "section",
+      "label": {
+        "en": "Options",
+        "fr": "Options",
+        "de": "Optionen",
+        "es": "Opciones"
+      }
+    },
+    {
+      "key": "interval",
+      "type": "select",
+      "required": false,
+      "default": "10",
+      "label": {
+        "en": "Reading every",
+        "fr": "Lecture toutes les",
+        "de": "Abruf alle",
+        "es": "Lectura cada"
+      },
+      "description": {
+        "en": "One request per reading; the stations send their measures every 10 minutes.",
+        "fr": "Une requête par lecture ; les stations envoient leurs mesures toutes les 10 minutes.",
+        "de": "Eine Anfrage pro Abruf; die Stationen senden ihre Messwerte alle 10 Minuten.",
+        "es": "Una solicitud por lectura; las estaciones envían sus medidas cada 10 minutos."
+      },
+      "options": [
+        {
+          "value": "10",
+          "label": {
+            "en": "10 minutes (recommended)",
+            "fr": "10 minutes (recommandé)",
+            "de": "10 Minuten (empfohlen)",
+            "es": "10 minutos (recomendado)"
+          }
+        },
+        {
+          "value": "15",
+          "label": {
+            "en": "15 minutes",
+            "fr": "15 minutes",
+            "de": "15 Minuten",
+            "es": "15 minutos"
+          }
+        },
+        {
+          "value": "30",
+          "label": {
+            "en": "30 minutes",
+            "fr": "30 minutes",
+            "de": "30 Minuten",
+            "es": "30 minutos"
+          }
+        },
+        {
+          "value": "60",
+          "label": {
+            "en": "1 hour",
+            "fr": "1 heure",
+            "de": "1 Stunde",
+            "es": "1 hora"
+          }
+        }
+      ]
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "default": "auto",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Device names and the texts given to scenes. Automatic: the language of the dashboard.",
+        "fr": "Noms des appareils et textes donnés aux scènes. Automatique : la langue du tableau de bord.",
+        "de": "Gerätenamen und die Texte für Szenen. Automatisch: die Sprache des Dashboards.",
+        "es": "Nombres de los dispositivos y textos para las escenas. Automático: el idioma del panel."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "key": "check",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Read Netatmo now",
+        "fr": "Lire Netatmo maintenant",
+        "de": "Netatmo jetzt abrufen",
+        "es": "Leer Netatmo ahora"
+      },
+      "description": {
+        "en": "Locates the house, reads the public stations around it and shows the weather of the neighborhood.",
+        "fr": "Localise la maison, lit les stations publiques autour et affiche la météo du quartier.",
+        "de": "Ortet das Zuhause, liest die öffentlichen Stationen ringsum und zeigt das Wetter der Umgebung.",
+        "es": "Localiza la casa, lee las estaciones públicas de alrededor y muestra el tiempo del barrio."
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "key": "neighborhood",
+      "icon": "cloud",
+      "label": {
+        "en": "Weather nearby",
+        "fr": "Météo du quartier",
+        "de": "Wetter in der Nähe",
+        "es": "Tiempo del barrio"
+      },
+      "description": {
+        "en": "Rain or not, temperature, humidity, wind, pressure, from the stations around.",
+        "fr": "Pluie ou non, température, humidité, vent, pression, d’après les stations autour.",
+        "de": "Regen oder nicht, Temperatur, Feuchte, Wind, Luftdruck, von den Stationen ringsum.",
+        "es": "Lluvia o no, temperatura, humedad, viento, presión, según las estaciones cercanas."
+      }
+    },
+    {
+      "key": "stations",
+      "icon": "map-pin",
+      "label": {
+        "en": "Netatmo stations nearby",
+        "fr": "Stations Netatmo proches",
+        "de": "Netatmo-Stationen in der Nähe",
+        "es": "Estaciones Netatmo cercanas"
+      },
+      "description": {
+        "en": "The nearest public stations: distance, temperature, humidity, rain, wind.",
+        "fr": "Les stations publiques les plus proches : distance, température, humidité, pluie, vent.",
+        "de": "Die nächsten öffentlichen Stationen: Entfernung, Temperatur, Feuchte, Regen, Wind.",
+        "es": "Las estaciones públicas más cercanas: distancia, temperatura, humedad, lluvia, viento."
+      }
+    },
+    {
+      "key": "history",
+      "icon": "activity",
+      "label": {
+        "en": "Neighborhood, last 24 h",
+        "fr": "Quartier, dernières 24 h",
+        "de": "Umgebung, letzte 24 Std.",
+        "es": "Barrio, últimas 24 h"
+      },
+      "description": {
+        "en": "A measure of the neighborhood over the last 24 hours, its lowest and highest values.",
+        "fr": "Une mesure du quartier sur les dernières 24 heures, ses valeurs extrêmes.",
+        "de": "Ein Messwert der Umgebung über die letzten 24 Stunden, mit Tiefst- und Höchstwert.",
+        "es": "Una medida del barrio en las últimas 24 horas, sus valores extremos."
+      },
+      "settings": [
+        {
+          "key": "measure",
+          "type": "select",
+          "default": "temperature",
+          "required": false,
+          "label": {
+            "en": "Measure",
+            "fr": "Mesure",
+            "de": "Messwert",
+            "es": "Medida"
+          },
+          "options": [
+            {
+              "value": "temperature",
+              "label": {
+                "en": "Temperature",
+                "fr": "Température",
+                "de": "Temperatur",
+                "es": "Temperatura"
+              }
+            },
+            {
+              "value": "humidity",
+              "label": {
+                "en": "Humidity",
+                "fr": "Humidité",
+                "de": "Luftfeuchtigkeit",
+                "es": "Humedad"
+              }
+            },
+            {
+              "value": "pressure",
+              "label": {
+                "en": "Pressure",
+                "fr": "Pression",
+                "de": "Luftdruck",
+                "es": "Presión"
+              }
+            },
+            {
+              "value": "wind",
+              "label": {
+                "en": "Wind and gusts",
+                "fr": "Vent et rafales",
+                "de": "Wind und Böen",
+                "es": "Viento y ráfagas"
+              }
+            },
+            {
+              "value": "rain",
+              "label": {
+                "en": "Rain",
+                "fr": "Pluie",
+                "de": "Regen",
+                "es": "Lluvia"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "rain_started",
+      "label": {
+        "en": "Netatmo: rain starts nearby",
+        "fr": "Netatmo : la pluie commence autour",
+        "de": "Netatmo: Regen beginnt in der Nähe",
+        "es": "Netatmo: empieza a llover cerca"
+      },
+      "description": {
+        "en": "At least a third of the rain gauges around the house measure rain, after a dry spell.",
+        "fr": "Au moins un tiers des pluviomètres autour de la maison mesurent de la pluie, après une période sèche.",
+        "de": "Mindestens ein Drittel der Regenmesser um das Zuhause misst Regen, nach einer trockenen Phase.",
+        "es": "Al menos un tercio de los pluviómetros alrededor de la casa miden lluvia, tras un periodo seco."
+      },
+      "variables": [
+        {
+          "key": "house",
+          "type": "string",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Casa"
+          }
+        },
+        {
+          "key": "wet_stations",
+          "type": "number",
+          "label": {
+            "en": "Rain gauges measuring rain",
+            "fr": "Pluviomètres qui mesurent de la pluie",
+            "de": "Regenmesser mit Regen",
+            "es": "Pluviómetros que miden lluvia"
+          }
+        },
+        {
+          "key": "rain_gauges",
+          "type": "number",
+          "label": {
+            "en": "Rain gauges nearby",
+            "fr": "Pluviomètres à proximité",
+            "de": "Regenmesser in der Nähe",
+            "es": "Pluviómetros cercanos"
+          }
+        },
+        {
+          "key": "rain_1h",
+          "type": "number",
+          "label": {
+            "en": "Rain over the last hour (mm)",
+            "fr": "Pluie de la dernière heure (mm)",
+            "de": "Regen der letzten Stunde (mm)",
+            "es": "Lluvia de la última hora (mm)"
+          }
+        },
+        {
+          "key": "rain_24h",
+          "type": "number",
+          "label": {
+            "en": "Rain over 24 hours (mm)",
+            "fr": "Pluie sur 24 heures (mm)",
+            "de": "Regen in 24 Stunden (mm)",
+            "es": "Lluvia en 24 horas (mm)"
+          }
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature (°C)",
+            "fr": "Température (°C)",
+            "de": "Temperatur (°C)",
+            "es": "Temperatura (°C)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        },
+        {
+          "key": "device",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        }
+      ]
+    },
+    {
+      "key": "rain_stopped",
+      "label": {
+        "en": "Netatmo: rain stops nearby",
+        "fr": "Netatmo : la pluie s’arrête autour",
+        "de": "Netatmo: Regen hört in der Nähe auf",
+        "es": "Netatmo: deja de llover cerca"
+      },
+      "description": {
+        "en": "After rain, two readings in a row without enough wet rain gauges.",
+        "fr": "Après la pluie, deux lectures de suite sans assez de pluviomètres mouillés.",
+        "de": "Nach Regen zwei Abrufe in Folge ohne genug nasse Regenmesser.",
+        "es": "Tras la lluvia, dos lecturas seguidas sin suficientes pluviómetros mojados."
+      },
+      "variables": [
+        {
+          "key": "house",
+          "type": "string",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Casa"
+          }
+        },
+        {
+          "key": "wet_stations",
+          "type": "number",
+          "label": {
+            "en": "Rain gauges measuring rain",
+            "fr": "Pluviomètres qui mesurent de la pluie",
+            "de": "Regenmesser mit Regen",
+            "es": "Pluviómetros que miden lluvia"
+          }
+        },
+        {
+          "key": "rain_gauges",
+          "type": "number",
+          "label": {
+            "en": "Rain gauges nearby",
+            "fr": "Pluviomètres à proximité",
+            "de": "Regenmesser in der Nähe",
+            "es": "Pluviómetros cercanos"
+          }
+        },
+        {
+          "key": "rain_1h",
+          "type": "number",
+          "label": {
+            "en": "Rain over the last hour (mm)",
+            "fr": "Pluie de la dernière heure (mm)",
+            "de": "Regen der letzten Stunde (mm)",
+            "es": "Lluvia de la última hora (mm)"
+          }
+        },
+        {
+          "key": "rain_24h",
+          "type": "number",
+          "label": {
+            "en": "Rain over 24 hours (mm)",
+            "fr": "Pluie sur 24 heures (mm)",
+            "de": "Regen in 24 Stunden (mm)",
+            "es": "Lluvia en 24 horas (mm)"
+          }
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature (°C)",
+            "fr": "Température (°C)",
+            "de": "Temperatur (°C)",
+            "es": "Temperatura (°C)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        },
+        {
+          "key": "device",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "read_weather",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Netatmo: read the weather nearby",
+        "fr": "Netatmo : lire la météo du quartier",
+        "de": "Netatmo: Wetter in der Nähe abrufen",
+        "es": "Netatmo: leer el tiempo del barrio"
+      },
+      "description": {
+        "en": "Reads the public stations around the house now, with the radius of your choice.",
+        "fr": "Lit maintenant les stations publiques autour de la maison, avec le rayon de votre choix.",
+        "de": "Liest jetzt die öffentlichen Stationen um das Zuhause, mit dem Radius deiner Wahl.",
+        "es": "Lee ahora las estaciones públicas alrededor de la casa, con el radio que elija."
+      },
+      "fields": [
+        {
+          "key": "radius_km",
+          "type": "number",
+          "required": false,
+          "min": 1,
+          "max": 20,
+          "label": {
+            "en": "Radius (km)",
+            "fr": "Rayon (km)",
+            "de": "Radius (km)",
+            "es": "Radio (km)"
+          },
+          "description": {
+            "en": "Empty: the radius of the configuration.",
+            "fr": "Vide : le rayon de la configuration.",
+            "de": "Leer: der Radius der Konfiguration.",
+            "es": "Vacío: el radio de la configuración."
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "stations",
+          "type": "number",
+          "label": {
+            "en": "Stations used",
+            "fr": "Stations utilisées",
+            "de": "Genutzte Stationen",
+            "es": "Estaciones usadas"
+          }
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature (°C)",
+            "fr": "Température (°C)",
+            "de": "Temperatur (°C)",
+            "es": "Temperatura (°C)"
+          }
+        },
+        {
+          "key": "humidity",
+          "type": "number",
+          "label": {
+            "en": "Humidity (%)",
+            "fr": "Humidité (%)",
+            "de": "Luftfeuchtigkeit (%)",
+            "es": "Humedad (%)"
+          }
+        },
+        {
+          "key": "pressure",
+          "type": "number",
+          "label": {
+            "en": "Pressure (hPa)",
+            "fr": "Pression (hPa)",
+            "de": "Luftdruck (hPa)",
+            "es": "Presión (hPa)"
+          }
+        },
+        {
+          "key": "rain_1h",
+          "type": "number",
+          "label": {
+            "en": "Rain over the last hour (mm)",
+            "fr": "Pluie de la dernière heure (mm)",
+            "de": "Regen der letzten Stunde (mm)",
+            "es": "Lluvia de la última hora (mm)"
+          }
+        },
+        {
+          "key": "rain_24h",
+          "type": "number",
+          "label": {
+            "en": "Rain over 24 hours (mm)",
+            "fr": "Pluie sur 24 heures (mm)",
+            "de": "Regen in 24 Stunden (mm)",
+            "es": "Lluvia en 24 horas (mm)"
+          }
+        },
+        {
+          "key": "wind_speed",
+          "type": "number",
+          "label": {
+            "en": "Wind (km/h)",
+            "fr": "Vent (km/h)",
+            "de": "Wind (km/h)",
+            "es": "Viento (km/h)"
+          }
+        },
+        {
+          "key": "wind_gust",
+          "type": "number",
+          "label": {
+            "en": "Gusts (km/h)",
+            "fr": "Rafales (km/h)",
+            "de": "Böen (km/h)",
+            "es": "Ráfagas (km/h)"
+          }
+        },
+        {
+          "key": "wind_direction",
+          "type": "number",
+          "label": {
+            "en": "Wind direction (°)",
+            "fr": "Direction du vent (°)",
+            "de": "Windrichtung (°)",
+            "es": "Dirección del viento (°)"
+          }
+        },
+        {
+          "key": "raining",
+          "type": "boolean",
+          "label": {
+            "en": "Raining",
+            "fr": "Il pleut",
+            "de": "Es regnet",
+            "es": "Llueve"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        }
+      ]
+    }
+  ]
+}

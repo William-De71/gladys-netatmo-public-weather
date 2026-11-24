@@ -1,0 +1,421 @@
+{
+  "devices": {
+    "area": {
+      "external_id": "ext:netatmo-public-weather:area:main-house",
+      "should_poll": false,
+      "params": ["NETATMO_HOUSE"],
+      "features": [
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:temperature",
+          "category": "temperature-sensor",
+          "type": "decimal",
+          "unit": "celsius",
+          "min": -60,
+          "max": 60,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:humidity",
+          "category": "humidity-sensor",
+          "type": "decimal",
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:pressure",
+          "category": "pressure-sensor",
+          "type": "decimal",
+          "unit": "hPa",
+          "min": 850,
+          "max": 1100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:rain_1h",
+          "category": "precipitation-sensor",
+          "type": "decimal",
+          "unit": "millimeter-per-hour",
+          "min": 0,
+          "max": 300,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:rain_24h",
+          "category": "precipitation-sensor",
+          "type": "decimal",
+          "unit": "millimeter-per-day",
+          "min": 0,
+          "max": 1000,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:wind_speed",
+          "category": "speed-sensor",
+          "type": "decimal",
+          "unit": "kilometer-per-hour",
+          "min": 0,
+          "max": 400,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:wind_gust",
+          "category": "speed-sensor",
+          "type": "decimal",
+          "unit": "kilometer-per-hour",
+          "min": 0,
+          "max": 400,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:wind_direction",
+          "category": "angle-sensor",
+          "type": "integer",
+          "unit": "degree",
+          "min": 0,
+          "max": 360,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:raining",
+          "category": "rain-sensor",
+          "type": "binary",
+          "min": 0,
+          "max": 1,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:area:main-house:stations",
+          "category": "counter-sensor",
+          "type": "integer",
+          "min": 0,
+          "max": 1000,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "station": {
+      "external_id": "ext:netatmo-public-weather:station:70ee5036947c",
+      "should_poll": false,
+      "params": ["NETATMO_STATION"],
+      "features": [
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:temperature",
+          "category": "temperature-sensor",
+          "type": "decimal",
+          "unit": "celsius",
+          "min": -60,
+          "max": 60,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:humidity",
+          "category": "humidity-sensor",
+          "type": "decimal",
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:pressure",
+          "category": "pressure-sensor",
+          "type": "decimal",
+          "unit": "hPa",
+          "min": 850,
+          "max": 1100,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:rain_1h",
+          "category": "precipitation-sensor",
+          "type": "decimal",
+          "unit": "millimeter-per-hour",
+          "min": 0,
+          "max": 300,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:rain_24h",
+          "category": "precipitation-sensor",
+          "type": "decimal",
+          "unit": "millimeter-per-day",
+          "min": 0,
+          "max": 1000,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:wind_speed",
+          "category": "speed-sensor",
+          "type": "decimal",
+          "unit": "kilometer-per-hour",
+          "min": 0,
+          "max": 400,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:wind_gust",
+          "category": "speed-sensor",
+          "type": "decimal",
+          "unit": "kilometer-per-hour",
+          "min": 0,
+          "max": 400,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:wind_direction",
+          "category": "angle-sensor",
+          "type": "integer",
+          "unit": "degree",
+          "min": 0,
+          "max": 360,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:raining",
+          "category": "rain-sensor",
+          "type": "binary",
+          "min": 0,
+          "max": 1,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:netatmo-public-weather:station:70ee5036947c:distance",
+          "category": "distance-sensor",
+          "type": "decimal",
+          "unit": "km",
+          "min": 0,
+          "max": 50,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    }
+  },
+  "manifest": {
+    "actions": ["check"],
+    "config_schema": [
+      {
+        "key": "intro",
+        "type": "section"
+      },
+      {
+        "key": "client_id",
+        "type": "string"
+      },
+      {
+        "key": "client_secret",
+        "type": "secret"
+      },
+      {
+        "key": "netatmo_account",
+        "type": "oauth2"
+      },
+      {
+        "key": "area",
+        "type": "section"
+      },
+      {
+        "key": "house",
+        "type": "select"
+      },
+      {
+        "key": "radius_km",
+        "type": "number"
+      },
+      {
+        "key": "statistic",
+        "type": "select",
+        "options": ["median", "mean"]
+      },
+      {
+        "key": "max_stations",
+        "type": "select",
+        "options": ["0", "5", "10", "20"]
+      },
+      {
+        "key": "options",
+        "type": "section"
+      },
+      {
+        "key": "interval",
+        "type": "select",
+        "options": ["10", "15", "30", "60"]
+      },
+      {
+        "key": "language",
+        "type": "select",
+        "options": ["auto", "en", "fr", "de", "es"]
+      }
+    ],
+    "scene_triggers": [
+      {
+        "key": "rain_started",
+        "fields": [],
+        "variables": [
+          {
+            "key": "house",
+            "type": "string"
+          },
+          {
+            "key": "wet_stations",
+            "type": "number"
+          },
+          {
+            "key": "rain_gauges",
+            "type": "number"
+          },
+          {
+            "key": "rain_1h",
+            "type": "number"
+          },
+          {
+            "key": "rain_24h",
+            "type": "number"
+          },
+          {
+            "key": "temperature",
+            "type": "number"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          },
+          {
+            "key": "device",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "rain_stopped",
+        "fields": [],
+        "variables": [
+          {
+            "key": "house",
+            "type": "string"
+          },
+          {
+            "key": "wet_stations",
+            "type": "number"
+          },
+          {
+            "key": "rain_gauges",
+            "type": "number"
+          },
+          {
+            "key": "rain_1h",
+            "type": "number"
+          },
+          {
+            "key": "rain_24h",
+            "type": "number"
+          },
+          {
+            "key": "temperature",
+            "type": "number"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          },
+          {
+            "key": "device",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "read_weather",
+        "fields": ["radius_km"],
+        "outputs": [
+          {
+            "key": "stations",
+            "type": "number"
+          },
+          {
+            "key": "temperature",
+            "type": "number"
+          },
+          {
+            "key": "humidity",
+            "type": "number"
+          },
+          {
+            "key": "pressure",
+            "type": "number"
+          },
+          {
+            "key": "rain_1h",
+            "type": "number"
+          },
+          {
+            "key": "rain_24h",
+            "type": "number"
+          },
+          {
+            "key": "wind_speed",
+            "type": "number"
+          },
+          {
+            "key": "wind_gust",
+            "type": "number"
+          },
+          {
+            "key": "wind_direction",
+            "type": "number"
+          },
+          {
+            "key": "raining",
+            "type": "boolean"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "widgets": [
+      {
+        "key": "neighborhood",
+        "settings": [],
+        "options": {}
+      },
+      {
+        "key": "stations",
+        "settings": [],
+        "options": {}
+      },
+      {
+        "key": "history",
+        "settings": ["measure"],
+        "options": {
+          "measure": ["temperature", "humidity", "pressure", "wind", "rain"]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+Gladys Netatmo Public Weather integration
+Copyright 2026 William-De71
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The weather measures come from the public Netatmo weather stations, through
+the Netatmo Connect API (https://dev.netatmo.com, endpoint getpublicdata), with
+the user's own Netatmo Connect application, under the Netatmo Connect terms of
+use. This integration is unofficial and not affiliated with Netatmo or Legrand.
+
+Netatmo is a trademark of Netatmo SAS (Legrand group).
