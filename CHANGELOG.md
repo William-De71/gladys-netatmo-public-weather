@@ -5,7 +5,7 @@ All notable changes to this project are documented here. The format follows
 [Semantic Versioning](https://semver.org/). This file is generated at each
 release from the Conventional Commits: never edit it by hand.
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2026-11-24
 
 ### Added
 
